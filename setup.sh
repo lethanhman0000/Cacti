@@ -29,7 +29,6 @@ systemctl restart apache2
 # Cấu hình bảo mật MariaDB
 MYSQL_ROOT_PASSWORD="123456"
 SECURE_MYSQL=$(expect -c "
-set timeout 10
 spawn mysql_secure_installation
 expect \"Enter current password for root (enter for none):\"
 send \"$MYSQL_ROOT_PASSWORD\r\"
