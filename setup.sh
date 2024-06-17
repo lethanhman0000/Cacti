@@ -209,7 +209,7 @@ mv cacti-1.2.27 /var/www/html/cacti
 chown -R www-data:www-data /var/www/html/cacti/
 
 # Nhập dữ liệu Cacti vào database
-mysql -u root -p cacti < /var/www/html/cacti/cacti.sql
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" cacti < /var/www/html/cacti/cacti.sql
 
 # Chỉnh sửa cấu hình Cacti
 tee /var/www/html/cacti/include/config.php > /dev/null <<EOL
