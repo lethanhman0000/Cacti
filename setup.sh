@@ -51,17 +51,10 @@ expect eof
 ")
 echo "$SECURE_MYSQL"
 
-# Tạo file cấu hình MySQL tạm thời
-tee ~/.my.cnf > /dev/null <<EOL
-[client]
-user=root
-password=$MYSQL_ROOT_PASSWORD
-EOL
-
 # Tạo Database và User cho Cacti
-mysql -e "CREATE DATABASE cacti;"
-mysql -e "GRANT ALL ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY '123456';"
-mysql -e "FLUSH PRIVILEGES;"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE cacti;"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "GRANT ALL ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY '123456';"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
 
 # Chỉnh sửa cấu hình MariaDB
 tee /etc/mysql/mariadb.conf.d/50-server.cnf > /dev/null <<EOL
@@ -276,5 +269,3 @@ a2ensite cacti
 systemctl restart apache2
 systemctl reload apache2
 systemctl start apache2
-rm ~/.my.cnf
-echo "14-06-2024"
